@@ -1,0 +1,27 @@
+int sort_cmp(const void *v1, const void *v2) {
+    return  *(int *)v1 < *(int *)v2 ? -1 : (*(int *)v1 == *(int *)v2 ? 0 : 1) ;
+}
+
+int findContentChildren(int* g, int gSize, int* s, int sSize){
+    int gi, si;
+    int n;
+
+    // Use greedy to dispatch cookies
+
+    // quick sort first
+    qsort( g, gSize, sizeof (int), sort_cmp );  // Time: O(G*logG)
+    qsort( s, sSize, sizeof (int), sort_cmp );  // Time: O(S*logS)
+
+    gi = 0, si = 0;
+    n = 0;
+    while ( gi < gSize && si < sSize ) {    // Time: O(G + S)
+        // if content the child, ...
+        if ( g[gi] <= s[si] ) {
+            n++;
+            gi++;
+        }
+        si++;
+    }
+
+    return n;
+}
